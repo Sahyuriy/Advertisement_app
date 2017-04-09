@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Advertisement_app</string>
+    <string-array name="category">
+        <item>Техника</item>
+        <item>Медицина</item>
+    </string-array>
+</resources>
