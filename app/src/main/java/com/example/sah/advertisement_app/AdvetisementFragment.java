@@ -103,7 +103,7 @@ public class AdvetisementFragment extends Fragment {
 
 
     private void updateUI() {
-//        AdvAdapter myAdapter = new AdvAdapter(items, getContext());
+
         AdvAdapter myAdapter = new AdvAdapter(items, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(myAdapter);

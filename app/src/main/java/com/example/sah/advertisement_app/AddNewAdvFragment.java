@@ -1,4 +1,4 @@
-package com.example.sah.advertisement_app;
+﻿package com.example.sah.advertisement_app;
 
 
 import android.app.ProgressDialog;
@@ -195,6 +195,7 @@ public class AddNewAdvFragment extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
 
+
                 String string = filePath.toString();
                 string = string.substring(string.length() - 5, string.length());
                 char[] c_arr = string.toCharArray();
@@ -223,14 +224,7 @@ public class AddNewAdvFragment extends Fragment {
         pd = new ProgressDialog(getContext());
         pd.setMessage("Uploading....");
 
-        Map<String, JSONObject> userMap= new HashMap<String, JSONObject>();
 
-        userMap.put(mAuth.getCurrentUser().getUid(), jsonObj);
-
-        //userRef .setValue(userMap);
-        Advertisement adv = new Advertisement();
-        //adv.setKey("1111");
-//        adv.setValue(jsonObj.toString());
 
 
         if (title.equals("")) {
@@ -311,27 +305,7 @@ public class AddNewAdvFragment extends Fragment {
             e.printStackTrace();
         }
         jsonAdv = jsonObj.toString();
-//        char c = '"';
-//        if (filePath != null) {
-//            jImage = "{"
-//                    + c + "imageName" + c + ":" + c + imgName + ".jpg" + c + ","
-//                    + c + "scaleType" + c + ":" + c + scaleType + c  + "}";
-//        }
-//        jsonAdv = "{"
-//                + c + "author" + c + ":" + c + name + c + ","
-//                + c + "title" + c + ":" + c + title + c + ","
-//                + c + "text" + c + ":" + c + text + c + ","
-//                + c + "image" + c + ":" + c + jImage + c + "}";
-//
-//        try {
-//            jsonObj = new JSONObject(jsonAdv);
-//            jTitle = jsonObj.getString("title");
-//            jText = jsonObj.getString("text");
-//            jName = jsonObj.getString("author");
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+
 //
 //        textView.setText(jsonAdv.toString());
 

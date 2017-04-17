@@ -104,11 +104,7 @@ public class MainActivity extends AppCompatActivity {
         btn_show = (Button) findViewById(R.id.btn_show);
         btn_new = (Button) findViewById(R.id.btn_new);
         storage = (Button) findViewById(R.id.btn_storage);
-        //imageView = (ImageView) findViewById(R.id.image);
-//        Glide.with(this)
-//                .using(new FirebaseImageLoader())
-//                .load(storageRef)
-//                .into(imageView);
+
 
         myRef = FirebaseDatabase.getInstance().getReference();
         user = mAuth.getInstance().getCurrentUser();
@@ -139,98 +135,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-/////////////////////////////////////////////////////////
-
-//        final FirebaseUser mUser = mAuth.getInstance().getCurrentUser();
-//
-//        btn_new.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //myRef.child("Tasks").push().setValue(et_new.getText().toString());
-//                myRef.child("Adv").child(selectedCategory).push().setValue(et_new.getText().toString());
-//                updateUI();
-//            }
-//        });
-//
-//
-//
-
-
-///////////////////////////////////////////////////
-
-
-
-
-
-//        spinnerAdd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (position==1){
-//                    selectedCategory = "Medical";
-//                }else {
-//                    selectedCategory = "Comp";
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
-
-
-
-
     }
 
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v.getId() == R.id.btn_new){}
-//        switch (v.getId()){
-//            case (R.id.btn_show):
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragm, new AdvetisementFragment()).commit();
-//                break;
-//            case (R.id.btn_new):
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragm, new AddNewAdvFragment()).commit();
-//                break;
-//
-//        }
-//
-//    }
-
-
-//    private void updateUI() {
-////        AdvAdapter myAdapter = new AdvAdapter(items, getContext());
-////        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-////        recyclerView.setAdapter(myAdapter);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getBaseContext(), android.R.layout.simple_list_item_1, items);
-//        listView.setAdapter(adapter);
-//    }
-//
-//    private void displayAdv() {
-//        items = new ArrayList<>();
-//
-//        myRef.child("Adv").child("Comp").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-//
-//                    value = childDataSnapshot.getValue().toString();
-//
-//                    items.add(value);
-//                }
-//                //value = dataSnapshot.getValue(String.class);
-//                updateUI();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
 }
