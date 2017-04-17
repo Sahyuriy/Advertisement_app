@@ -4,4 +4,32 @@
         <item>Техника</item>
         <item>Медицина</item>
     </string-array>
+
+
+    <string name="tv_name">Введите имя</string>
+    <string name="tv_email">Введите Ваш Email</string>
+    <string name="tv_pass">Введите Ваш пароль</string>
+    <string name="tv_pass_confirm">Введите пароль еще раз</string>
+    <string name="tv_choise">Вы собираетесь:</string>
+    <string name="rb_watch">Смотреть рекламу</string>
+    <string name="rb_add">Размещать рекламу</string>
+    <string name="btn_reg">Зарегестрироваться</string>
+
+    <string name="hint_name">Имя</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+
+    <string name="warning_title">Введите заглавие</string>
+    <string name="warning_text">В обьявлении должены присутствовать либо текст либо картинка</string>
+    <string name="warning_reg_error">Ошибка регистрации</string>
+    <string name="warning_reg">Регистрация успешна</string>
+    <string name="warning_name">Введите имя</string>
+    <string name="warning_pass_confirm">Поля паролей не совпадают</string>
+
+
+
+
+    <string name="warning_pass">Введите пароль</string>
+    <string name="warning_email">Поле email не может быть пустым</string>
+
 </resources>

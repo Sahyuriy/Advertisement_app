@@ -13,14 +13,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.sah.advertisement_app.auth.AuthActivity;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,6 +35,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,13 +63,16 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseListAdapter mAdater;
 
 
-    private Button btn_new;
+    private Button btn_new, storage;
     private EditText et_new;
     //private ArrayList<String> items = new ArrayList<>();
     private ArrayList<String> items;
     private Spinner spinner, spinnerAdd;
     private String selectedCategory;
-
+    private Button btn_show;
+    private ImageView imageView;
+    private FirebaseStorage fStorage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = fStorage.getReferenceFromUrl("gs://advertisementapp-c96d6.appspot.com/images/niZkcNtKU8abzIO9NwUPy5P4Bxv2[C@421a3dc0.jpg");
 
     String value;
 
@@ -91,92 +100,83 @@ public class MainActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.tv);
 
-        listView = (ListView) findViewById(R.id.lv_item);
 
+        btn_show = (Button) findViewById(R.id.btn_show);
         btn_new = (Button) findViewById(R.id.btn_new);
-        et_new = (EditText) findViewById(R.id.et_new);
-
+        storage = (Button) findViewById(R.id.btn_storage);
+        //imageView = (ImageView) findViewById(R.id.image);
+//        Glide.with(this)
+//                .using(new FirebaseImageLoader())
+//                .load(storageRef)
+//                .into(imageView);
 
         myRef = FirebaseDatabase.getInstance().getReference();
         user = mAuth.getInstance().getCurrentUser();
 
-        spinner = (Spinner) findViewById(R.id.spinner_watch);
-        spinnerAdd = (Spinner) findViewById(R.id.spinner_add);
-
-        String selected = spinner.getSelectedItem().toString();
-
-        if (selected.equals("Медицина")){
-            selectedCategory = "Medical";
-        }
-        else {
-            selectedCategory = "Comp";
-        }
+        //spinner = (Spinner) findViewById(R.id.spinner_watch);
 
 
+        storage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StorageActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
-
-        final FirebaseUser mUser = mAuth.getInstance().getCurrentUser();
-
+        btn_show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragm, new AdvetisementFragment()).commit();
+            }
+        });
         btn_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //myRef.child("Tasks").push().setValue(et_new.getText().toString());
-                myRef.child("Adv").child(selectedCategory).push().setValue(et_new.getText().toString());
-                updateUI();
-            }
-        });
-        //displayAdv();
-
-
-
-
-
-        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
-        tabHost.setup();
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("tab1");
-        tabSpec.setContent(R.id.lin_one);
-        tabSpec.setIndicator("Смотреть рекламу");
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("tab2");
-        tabSpec.setContent(R.id.lin_two);
-        tabSpec.setIndicator("Разместить");
-        tabHost.addTab(tabSpec);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position==1){
-                    selectedCategory = "Medical";
-                    displayAdv();
-                }else {
-                    selectedCategory = "Comp";
-                    displayAdv();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragm, new AddNewAdvFragment()).commit();
             }
         });
 
-        spinnerAdd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position==1){
-                    selectedCategory = "Medical";
-                }else {
-                    selectedCategory = "Comp";
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+/////////////////////////////////////////////////////////
 
-            }
-        });
+//        final FirebaseUser mUser = mAuth.getInstance().getCurrentUser();
+//
+//        btn_new.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //myRef.child("Tasks").push().setValue(et_new.getText().toString());
+//                myRef.child("Adv").child(selectedCategory).push().setValue(et_new.getText().toString());
+//                updateUI();
+//            }
+//        });
+//
+//
+//
+
+
+///////////////////////////////////////////////////
+
+
+
+
+
+//        spinnerAdd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                if (position==1){
+//                    selectedCategory = "Medical";
+//                }else {
+//                    selectedCategory = "Comp";
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
 
@@ -184,34 +184,53 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(adapter);
-    }
 
-    private void displayAdv() {
-        items = new ArrayList<>();
+//    @Override
+//    public void onClick(View v) {
+//        if (v.getId() == R.id.btn_new){}
+//        switch (v.getId()){
+//            case (R.id.btn_show):
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragm, new AdvetisementFragment()).commit();
+//                break;
+//            case (R.id.btn_new):
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragm, new AddNewAdvFragment()).commit();
+//                break;
+//
+//        }
+//
+//    }
 
-        myRef.child("Adv").child(selectedCategory).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-
-                    value = childDataSnapshot.getValue().toString();
-                    items.add(value);
-                }
-                //value = dataSnapshot.getValue(String.class);
-                //textView.setText(value.toString());
-                updateUI();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
+//    private void updateUI() {
+////        AdvAdapter myAdapter = new AdvAdapter(items, getContext());
+////        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+////        recyclerView.setAdapter(myAdapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getBaseContext(), android.R.layout.simple_list_item_1, items);
+//        listView.setAdapter(adapter);
+//    }
+//
+//    private void displayAdv() {
+//        items = new ArrayList<>();
+//
+//        myRef.child("Adv").child("Comp").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//
+//                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+//
+//                    value = childDataSnapshot.getValue().toString();
+//
+//                    items.add(value);
+//                }
+//                //value = dataSnapshot.getValue(String.class);
+//                updateUI();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 }

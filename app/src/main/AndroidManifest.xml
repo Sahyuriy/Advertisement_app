@@ -3,6 +3,7 @@
     package="com.example.sah.advertisement_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".auth.RegistrationActivity" />
-        <activity android:name=".auth.AuthActivity"></activity>
+        <activity android:name=".auth.AuthActivity" />
+        <activity android:name=".StorageActivity"></activity>
     </application>
 
 </manifest>

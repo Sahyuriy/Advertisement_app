@@ -50,8 +50,8 @@ public class AuthActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(AuthActivity.this,MainActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(AuthActivity.this,MainActivity.class);
+//                    startActivity(intent);
                     // User is signed in
 //                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
@@ -74,15 +74,20 @@ public class AuthActivity extends AppCompatActivity {
         btnAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth(etEmail.getText().toString(),etPass.getText().toString());
+                if (etEmail.getText().toString().equals("")){
+                    Toast.makeText(AuthActivity.this, R.string.warning_email, Toast.LENGTH_SHORT).show();
+                }else if (etPass.getText().toString().equals("")){
+                    Toast.makeText(AuthActivity.this, R.string.warning_pass, Toast.LENGTH_SHORT).show();
+                }else {
+                    auth(etEmail.getText().toString(),etPass.getText().toString());
+                }
             }
         });
 
-        if (!mSettings.getString(APP_PREF_EMAIL, "").equals("")){
+        if (!mSettings.getString(APP_PREF_EMAIL, "").equals("")) {
             etEmail.setText(mSettings.getString(APP_PREF_EMAIL, ""));
             etPass.setText(mSettings.getString(APP_PREF_PASSWORD, ""));
         }
-
 
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override

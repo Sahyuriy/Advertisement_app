@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.sah.advertisement_app.AddNewAdvFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/warning_title"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Выберите картинку (необязательно)"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_add_picture"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Добавить изображение"
+                android:textAllCaps="false"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/lin"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:text="centerCrop"
+                    android:id="@+id/scale1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:text="fitcenter"
+                    android:id="@+id/scale2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:text="center"
+                    android:id="@+id/scale3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Введите текст Вашего обьявления"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="7" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Выберите категорию обьявления"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:entries="@array/category" />
+
+            <Button
+                android:id="@+id/btn_upl"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Опубликовать" />
+
+
+
+            <TextView
+                android:id="@+id/tv_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
