@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.sah.advertisement_app.auth.AuthActivity;
+import com.example.sah.advertisement_app.db.FavoritesActivity;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -84,6 +87,24 @@ public class MainActivity extends AppCompatActivity {
 
         mSettings = getSharedPreferences(APP_PREF, Context.MODE_PRIVATE);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+//                    Intent intent = new Intent(AuthActivity.this,MainActivity.class);
+//                    startActivity(intent);
+                    // User is signed in
+//                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+//                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+
+            }
+        };
 
         if (mSettings.getString(APP_PREF_SIGNED, "").equals("isSigned")) {
 
@@ -93,32 +114,19 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             Toast.makeText(this, "Авторизируйтесь", Toast.LENGTH_LONG).show();
-            Intent in = new Intent(MainActivity.this, AuthActivity.class);
-            startActivity(in);
+            startActivity(new Intent(MainActivity.this, AuthActivity.class));
         }
 
 
         textView = (TextView) findViewById(R.id.tv);
 
-
         btn_show = (Button) findViewById(R.id.btn_show);
         btn_new = (Button) findViewById(R.id.btn_new);
-        storage = (Button) findViewById(R.id.btn_storage);
-
 
         myRef = FirebaseDatabase.getInstance().getReference();
         user = mAuth.getInstance().getCurrentUser();
 
         //spinner = (Spinner) findViewById(R.id.spinner_watch);
-
-
-        storage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StorageActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         btn_show.setOnClickListener(new View.OnClickListener() {
@@ -137,5 +145,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.logout:
+                mAuth.signOut();
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.putString(APP_PREF_SIGNED, "notSigned");
+                editor.apply();
+                Intent i = new Intent(MainActivity.this, AuthActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            case R.id.favorites:
+                startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+            case R.id.close:
+                finishAffinity();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

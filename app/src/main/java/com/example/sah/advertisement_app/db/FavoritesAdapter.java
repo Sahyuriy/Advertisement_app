@@ -1,17 +1,17 @@
-package com.example.sah.advertisement_app;
+package com.example.sah.advertisement_app.db;
 
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.sah.advertisement_app.AdvAdapter;
+import com.example.sah.advertisement_app.R;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -21,9 +21,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.MyViewHolder> {
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyViewHolder> {
 
-    private OnItemClickListener onItemClickListener;
+
     private JSONObject jsonObj, jImage;
     private String jTitle, jText, jName, imgName, scaleType;
     private ArrayList<String> data;
@@ -33,28 +33,28 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.MyViewHolder> {
 
 
 
-    public AdvAdapter(ArrayList<String> strings, Context c) {
+    public FavoritesAdapter(ArrayList<String> strings, Context c) {
         data = strings;
         context = c;
     }
 
 
     @Override
-    public AdvAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder viewHolder = new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_items, parent, false));
+    public FavoritesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        FavoritesAdapter.MyViewHolder viewHolder = new FavoritesAdapter.MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_favorites, parent, false));
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(AdvAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(FavoritesAdapter.MyViewHolder holder, int position) {
 
 
         try {
             jsonObj = new JSONObject(data.get(position));
-            jTitle = jsonObj.getString("title");
-            jText = jsonObj.getString("text");
-            holder.tv_text.setText(jText);
-            holder.tv_title.setText(jTitle);
+            holder.tv_text.setText(jsonObj.getString("text"));
+            holder.tv_title.setText(jsonObj.getString("title"));
+            holder.tv_author_name.setText(jsonObj.getString("author"));
+            holder.tv_author_email.setText(jsonObj.getString("email"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -94,29 +94,18 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_title, tv_text;
+        TextView tv_title, tv_text, tv_author_name, tv_author_email;
         ImageView imageView;
 
-        public MyViewHolder(View itemView) {
+        private MyViewHolder(View itemView) {
             super(itemView);
-            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
-            tv_text = (TextView) itemView.findViewById(R.id.tv_descr);
-            imageView = (ImageView) itemView.findViewById(R.id.iv_image);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.OnItemClick(data.get(getAdapterPosition()));
-                }
-            });
+            tv_title = (TextView) itemView.findViewById(R.id.fav_title);
+            tv_text = (TextView) itemView.findViewById(R.id.fav_descr);
+            imageView = (ImageView) itemView.findViewById(R.id.fav_image);
+            tv_author_name = (TextView) itemView.findViewById(R.id.fav_author_name);
+            tv_author_email = (TextView) itemView.findViewById(R.id.fav_author_email);
         }
     }
 
-    public void setOnItemClickListener (OnItemClickListener onItemClickListener){
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemClickListener{
-        void OnItemClick (String json);
-    }
 }
+

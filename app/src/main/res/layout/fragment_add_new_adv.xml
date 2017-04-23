@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ADD8E6"
     tools:context="com.example.sah.advertisement_app.AddNewAdvFragment">
 
     <ScrollView
@@ -59,17 +60,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <Button
-                    android:text="centerCrop"
+                    android:textAllCaps="false"
+                    android:text="По центру"
                     android:id="@+id/scale1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <Button
-                    android:text="fitcenter"
+                    android:textAllCaps="false"
+                    android:text="Стандарт"
                     android:id="@+id/scale2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <Button
-                    android:text="center"
+                    android:textAllCaps="false"
+                    android:text="Растянуть"
                     android:id="@+id/scale3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

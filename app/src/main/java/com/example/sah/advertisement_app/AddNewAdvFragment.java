@@ -1,4 +1,4 @@
-﻿package com.example.sah.advertisement_app;
+package com.example.sah.advertisement_app;
 
 
 import android.app.ProgressDialog;
@@ -26,8 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -39,15 +41,12 @@ import com.google.firebase.storage.UploadTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 public class AddNewAdvFragment extends Fragment {
 
     public static final String APP_PREF = "mysettings";
     public static final String APP_PREF_USER_NAME = "username";
+    public static final String APP_PREF_EMAIL = "email";
 
     private SharedPreferences mSettings;
     private int PICK_IMAGE_REQUEST = 111;
@@ -127,28 +126,30 @@ public class AddNewAdvFragment extends Fragment {
             }
         });
 
-        String selected = spinnerCategory.getSelectedItem().toString();
+        selectedCategory = "Comp";
 
-        if (selected.equals("Медицина")) {
-            selectedCategory = "Medical";
-        } else {
-            selectedCategory = "Comp";
-        }
+//        String selected = spinnerCategory.getSelectedItem().toString();
+//
+//        if (selected.equals("Medical")) {
+//            selectedCategory = "Medical";
+//        } else {
+//            selectedCategory = "Comp";
+//        }
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 1) {
                     selectedCategory = "Medical";
+                }else if (position==2) {
+                    selectedCategory = "Other";
                 } else {
                     selectedCategory = "Comp";
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
     }
@@ -160,13 +161,16 @@ public class AddNewAdvFragment extends Fragment {
         mSettings = getActivity().getSharedPreferences(APP_PREF, Context.MODE_PRIVATE);
         mAuth = FirebaseAuth.getInstance();
         imgName = mAuth.getCurrentUser().getUid();
-        //final FirebaseUser mUser = mAuth.getInstance().getCurrentUser();
 
         btn_upl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //checkingBeforeUpload();
-                uploadAdv();
+                CheckConnection cc = new CheckConnection(getContext());
+                if (cc.isNetworkAvailable()) {
+                    uploadAdv();
+                } else {
+                    Toast.makeText(getContext(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -194,7 +198,6 @@ public class AddNewAdvFragment extends Fragment {
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-
 
                 String string = filePath.toString();
                 string = string.substring(string.length() - 5, string.length());
@@ -225,8 +228,6 @@ public class AddNewAdvFragment extends Fragment {
         pd.setMessage("Uploading....");
 
 
-
-
         if (title.equals("")) {
             Toast.makeText(getContext(), R.string.warning_title, Toast.LENGTH_SHORT).show();
         } else if (text.equals("")) {
@@ -234,7 +235,7 @@ public class AddNewAdvFragment extends Fragment {
                 convertContent();
                 if (filePath != null) {
                     uploadImage();
-                    myRef.child("Adv").child("Comp").push().setValue(jsonObj);
+                    uploadData();
                 }
             } else {
                 Toast.makeText(getContext(), R.string.warning_text, Toast.LENGTH_SHORT).show();
@@ -242,13 +243,26 @@ public class AddNewAdvFragment extends Fragment {
 
         } else {
             convertContent();
-            myRef.child("Adv").child("Comp").push().setValue(jsonAdv);
+            uploadData();
             if (filePath != null) {
                 uploadImage();
             }
         }
 
 
+    }
+
+    private void uploadData (){
+        myRef.child("Adv").child(selectedCategory).push().setValue(jsonAdv).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), R.string.upload_data_s, Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), R.string.upload_data_f, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void uploadImage() {
@@ -264,13 +278,13 @@ public class AddNewAdvFragment extends Fragment {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 pd.dismiss();
                 downloadUrl = taskSnapshot.getDownloadUrl();
-                Toast.makeText(getContext(), "Upload successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.upload_img_s, Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(getContext(), "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.upload_img_f+ "->" + e, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -278,26 +292,25 @@ public class AddNewAdvFragment extends Fragment {
 
     private void convertContent() {
 
-
-
         String title = et_title.getText().toString();
         String text = et_text.getText().toString();
-//        String name = mSettings.getString(APP_PREF_USER_NAME, "");
-        String name ="Yo yo";
-        if (filePath != null) {
+        String name = mSettings.getString(APP_PREF_USER_NAME, "");
+        String email = mSettings.getString(APP_PREF_EMAIL, "");
+        String uid = mAuth.getCurrentUser().getUid();
 
-        }
         jsonObj = new JSONObject();
         jsonImage = new JSONObject();
         try {
             jsonObj.put("author", name);
-                    jsonObj.put("title", title);
-                    jsonObj.put("text", text);
+            jsonObj.put("title", title);
+            jsonObj.put("text", text);
+            jsonObj.put("uid", uid);
+            jsonObj.put("email", email);
             if (filePath != null) {
                 jsonImage.put("imageName", imgName + ".jpg");
                 jsonImage.put("scaleType", scaleType);
                 jsonObj.put("image", jsonImage);
-            }else {
+            } else {
                 jsonObj.put("image", "");
             }
         } catch (JSONException e) {

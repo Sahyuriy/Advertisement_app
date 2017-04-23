@@ -3,6 +3,7 @@
     <string-array name="category">
         <item>Техника</item>
         <item>Медицина</item>
+        <item>Другое</item>
     </string-array>
 
 
@@ -26,10 +27,18 @@
     <string name="warning_name">Введите имя</string>
     <string name="warning_pass_confirm">Поля паролей не совпадают</string>
 
-
-
-
+    <string name="no_internet">Нету интернет соединения</string>
     <string name="warning_pass">Введите пароль</string>
     <string name="warning_email">Поле email не может быть пустым</string>
+
+
+    <string name="upload_img_f">Картинка не загружена</string>
+    <string name="upload_img_s">Картинка загружена</string>
+    <string name="upload_data_f">Данные не загружены</string>
+    <string name="upload_data_s">Данные загружены</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
