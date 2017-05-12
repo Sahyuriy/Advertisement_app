@@ -20,11 +20,14 @@ import android.widget.Toast;
 import com.example.sah.advertisement_app.CheckConnection;
 import com.example.sah.advertisement_app.MainActivity;
 import com.example.sah.advertisement_app.R;
+import com.example.sah.advertisement_app.db.FavoritesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.ProviderQueryResult;
 
@@ -143,7 +146,7 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(AuthActivity.this, "Aвторизация успешна", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AuthActivity.this, R.string.warning_auth, Toast.LENGTH_SHORT).show();
                     SharedPreferences.Editor editor = mSettings.edit();
                     editor.putString(APP_PREF_EMAIL, etEmail.getText().toString());
                     editor.putString(APP_PREF_PASSWORD, etPass.getText().toString());
@@ -151,7 +154,7 @@ public class AuthActivity extends AppCompatActivity {
                     editor.apply();
                     startActivity(new Intent(AuthActivity.this,MainActivity.class));
                 }else {
-                    Toast.makeText(AuthActivity.this, "Ошибка авторизации", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AuthActivity.this, R.string.warning_auth_error +"\n" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -175,4 +178,8 @@ public class AuthActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }

@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +32,7 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.MyViewHolder> {
     private Context context;
     private FirebaseStorage fStorage = FirebaseStorage.getInstance();
     private StorageReference storageRef;
-
+    int lastPosition = -1;
 
 
     public AdvAdapter(ArrayList<String> strings, Context c) {
@@ -85,6 +87,17 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.MyViewHolder> {
         }
 
 
+
+
+        if(position >lastPosition) {
+
+            Animation animation = AnimationUtils.loadAnimation(context,
+                    R.anim.item_anim);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
+        }
+
+
     }
 
     @Override
@@ -106,7 +119,7 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.MyViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.OnItemClick(data.get(getAdapterPosition()));
+                    onItemClickListener.OnItemClick(data.get(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
@@ -117,6 +130,6 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.MyViewHolder> {
     }
 
     public interface OnItemClickListener{
-        void OnItemClick (String json);
+        void OnItemClick (String json, int position);
     }
 }

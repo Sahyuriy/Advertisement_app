@@ -3,6 +3,7 @@ package com.example.sah.advertisement_app;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +57,7 @@ public class AddNewAdvFragment extends Fragment {
     private EditText et_text, et_title;
     private FirebaseAuth mAuth;
     //private DatabaseReference myRef;
-    private Button btn_upl;
+    private Button btn_upl, btn_pre;
     private String selectedCategory;
     private Button chooseImg;
     private ImageView imgView;
@@ -69,12 +72,13 @@ public class AddNewAdvFragment extends Fragment {
     private Button scale1, scale2, scale3;
     private String scaleType = "centerCrop";
     private Uri downloadUrl;
+    private Bitmap preBitmap;
 
 
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReferenceFromUrl("gs://advertisementapp-c96d6.appspot.com");
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReferenceFromUrl("https://advertisementapp-c96d6.firebaseio.com/");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReferenceFromUrl("https://advertisementapp-c96d6.firebaseio.com/");
 
     public AddNewAdvFragment() {
         // Required empty public constructor
@@ -95,9 +99,10 @@ public class AddNewAdvFragment extends Fragment {
         et_title = (EditText) view.findViewById(R.id.et_title);
         et_text = (EditText) view.findViewById(R.id.et_text);
         btn_upl = (Button) view.findViewById(R.id.btn_upl);
+        btn_pre = (Button) view.findViewById(R.id.btn_pre);
         chooseImg = (Button) view.findViewById(R.id.btn_add_picture);
         imgView = (ImageView) view.findViewById(R.id.iv_img);
-        textView = (TextView) view.findViewById(R.id.tv_t);
+
         linLay = (LinearLayout) view.findViewById(R.id.lin);
 
         scale1 = (Button) view.findViewById(R.id.scale1);
@@ -128,13 +133,6 @@ public class AddNewAdvFragment extends Fragment {
 
         selectedCategory = "Comp";
 
-//        String selected = spinnerCategory.getSelectedItem().toString();
-//
-//        if (selected.equals("Medical")) {
-//            selectedCategory = "Medical";
-//        } else {
-//            selectedCategory = "Comp";
-//        }
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -142,6 +140,8 @@ public class AddNewAdvFragment extends Fragment {
                 if (position == 1) {
                     selectedCategory = "Medical";
                 }else if (position==2) {
+                    selectedCategory = "Furniture";
+                }else if (position==3) {
                     selectedCategory = "Other";
                 } else {
                     selectedCategory = "Comp";
@@ -184,7 +184,12 @@ public class AddNewAdvFragment extends Fragment {
             }
         });
 
-
+        btn_pre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                preLook();
+            }
+        });
     }
 
     @Override
@@ -211,8 +216,8 @@ public class AddNewAdvFragment extends Fragment {
 
                 imgName = imgName + string;
                 imgView.setImageBitmap(bitmap);
+                preBitmap = bitmap;
 
-                textView.setText(imgName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -225,7 +230,7 @@ public class AddNewAdvFragment extends Fragment {
         String title = et_title.getText().toString();
         String text = et_text.getText().toString();
         pd = new ProgressDialog(getContext());
-        pd.setMessage("Uploading....");
+        pd.setMessage(getContext().getResources().getString(R.string.pd_wait));
 
 
         if (title.equals("")) {
@@ -314,14 +319,48 @@ public class AddNewAdvFragment extends Fragment {
                 jsonObj.put("image", "");
             }
         } catch (JSONException e) {
-            // Handle impossible error
             e.printStackTrace();
         }
         jsonAdv = jsonObj.toString();
 
-//
-//        textView.setText(jsonAdv.toString());
 
 
+    }
+
+    private void preLook() {
+
+
+        final AlertDialog.Builder preDialog = new AlertDialog.Builder(getContext());
+
+        //preDialog.setTitle(R.string.btn_pre);
+
+        ScrollView linearlayout = (ScrollView) getActivity().getLayoutInflater().inflate(R.layout.pre_look, null);
+        preDialog.setView(linearlayout);
+
+        final TextView tv_title = (TextView) linearlayout.findViewById(R.id.pre_title);
+        final TextView tv_text = (TextView) linearlayout.findViewById(R.id.pre_descr);
+        final ImageView img = (ImageView) linearlayout.findViewById(R.id.pre_image);
+
+        if (filePath != null) {
+            img.setVisibility(View.VISIBLE);
+            img.setImageBitmap(preBitmap);
+            img.setScaleType(imgView.getScaleType());
+        }
+
+
+        tv_title.setText(et_title.getText().toString());
+        tv_text.setText(et_text.getText().toString());
+
+
+
+        preDialog.setNegativeButton(R.string.dialogBtn_no,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        preDialog.create();
+        preDialog.show();
     }
 }

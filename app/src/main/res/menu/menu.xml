@@ -2,19 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--<item-->
+        <!--android:id="@+id/home"-->
+        <!--android:icon="@drawable/home"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="always" />-->
+
+
     <item
         android:id="@+id/favorites"
         android:orderInCategory="100"
-        app:showAsAction= "never"
-        android:title="Избранное" />
+        app:showAsAction= "always"
+        android:icon="@drawable/fav" />
     <item
         android:id="@+id/logout"
         android:orderInCategory="100"
-        app:showAsAction= "never"
-        android:title="logout" />
+        android:icon="@drawable/logout"
+        app:showAsAction= "always" />
     <item
         android:id="@+id/close"
         android:orderInCategory="100"
-        app:showAsAction= "never"
-        android:title="Закрыть" />
+        app:showAsAction= "always"
+        android:icon="@drawable/cancel"/>
 </menu>

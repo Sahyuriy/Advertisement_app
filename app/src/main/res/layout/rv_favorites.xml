@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#ADD8E6"
+    android:background="@drawable/bg_items"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -9,55 +9,58 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="#000000" />
-
         <TextView
+            style="@style/AppItems.tv.title"
             android:id="@+id/fav_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+            android:layout_gravity="center" />
 
         <ImageView
+            style="@style/AppItems"
             android:id="@+id/fav_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/fav_descr"
+            style="@style/AppItems.tv"
+            android:id="@+id/fav_descr"/>
+
+        <FrameLayout
+            android:layout_margin="@dimen/marginTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:layout_marginTop="@dimen/btn_margin"
+            android:background="@drawable/bg_items"
+            android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#20B2AA"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/fav_author_name"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin_left"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/fav_author_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="24sp" />
-        </LinearLayout>
+                <TextView
+                    style="@style/AppItems.tv"
+                    android:layout_marginTop="@dimen/zero"
+                    android:text="@string/tv_author" />
+
+                <TextView
+                    android:id="@+id/fav_author_name"
+                    style="@style/AppItems.tv"
+                    android:layout_marginTop="@dimen/zero" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/fav_send"
+                android:layout_width="@dimen/img_btn"
+                android:layout_height="@dimen/img_btn"
+                android:layout_gravity="right"
+                android:layout_marginTop="@dimen/zero"
+                android:background="@drawable/img_btn"
+                android:scaleType="centerCrop"
+                android:src="@drawable/coment" />
+        </FrameLayout>
 
     </LinearLayout>
 </LinearLayout>

@@ -3,19 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ADD8E6"
+    android:background="@color/background_color"
     tools:context="com.example.sah.advertisement_app.AdvetisementFragment">
 
-    <Spinner
-        android:id="@+id/spinner_watch"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:entries="@array/category" />
+        android:background="@drawable/round">
+        <Spinner
+            android:id="@+id/spinner_watch"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sp_height"
+            android:layout_marginTop="@dimen/marginTop"
+            android:entries="@array/category"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_item"

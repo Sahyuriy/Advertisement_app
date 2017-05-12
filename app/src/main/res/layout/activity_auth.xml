@@ -4,56 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:background="@color/background_color"
     android:orientation="vertical"
-    android:background="#ADD8E6"
+    android:padding="@dimen/activity_padding"
     tools:context="com.example.sah.advertisement_app.auth.AuthActivity">
+
+    <LinearLayout
+        style="@style/AppItems"
+        android:layout_marginTop="@dimen/layout_marginTop" />
+
+    <EditText
+        android:id="@+id/et_email"
+        style="@style/AppItems.et"
+        android:layout_gravity="center"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress" />
+
+
+    <EditText
+        android:id="@+id/et_pass"
+        style="@style/AppItems.et"
+        android:layout_gravity="center"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <EditText
+        <Button
+            style="@style/AppItems.btn"
+            android:id="@+id/btn_auth"
+            android:text="@string/btn_auth"/>
 
-            android:id="@+id/et_email"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
+        <Button
+            style="@style/AppItems.btn"
+            android:id="@+id/btn_reg"
+            android:layout_margin="@dimen/btn_margin"
+            android:text="@string/btn_registration"/>
 
-
-        <EditText
-            android:id="@+id/et_pass"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:hint="Password"
-            android:inputType="textPassword" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_auth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="Авторизация"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/btn_reg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="Регистрация"
-                android:textAllCaps="false" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

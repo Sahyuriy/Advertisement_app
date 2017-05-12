@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
-    android:background="#ADD8E6"
+    android:background="@color/background_color"
+    android:padding="@dimen/activity_padding"
     tools:context="com.example.sah.advertisement_app.auth.RegistrationActivity">
 
     <LinearLayout
@@ -14,163 +14,112 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/tv_name"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            style="@style/AppItems.tv"
+            android:text="@string/tv_name" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AppItems"
             android:orientation="horizontal">
 
             <EditText
+                style="@style/AppItems.et"
                 android:id="@+id/et_my_name"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
                 android:hint="@string/hint_name"
                 android:inputType="textPersonName" />
 
             <ImageView
-                android:id="@+id/iv_check_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:visibility="gone" />
+                style="@style/AppItems.icons"
+                android:id="@+id/iv_check_name"/>
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/tv_email"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            style="@style/AppItems.tv"
+            android:text="@string/tv_email" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AppItems"
             android:orientation="horizontal">
 
             <EditText
+                style="@style/AppItems.et"
                 android:id="@+id/et_my_email"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress" />
 
             <ImageView
-                android:id="@+id/iv_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:visibility="gone" />
+                style="@style/AppItems.icons"
+                android:id="@+id/iv_check"/>
         </LinearLayout>
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/tv_pass"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            style="@style/AppItems.tv"
+            android:text="@string/tv_pass" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AppItems"
             android:orientation="horizontal">
 
             <EditText
+                style="@style/AppItems.et"
                 android:id="@+id/et_my_pass"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword" />
 
             <ImageView
-                android:id="@+id/iv_check_pass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:visibility="gone" />
+                style="@style/AppItems.icons"
+                android:id="@+id/iv_check_pass"/>
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Не менее 6 символов"
-            android:textColor="#000000"
-            android:textSize="11sp" />
+            style="@style/AppItems.tv.small"
+            android:text="@string/tv_text" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/tv_pass_confirm"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            style="@style/AppItems.tv"
+            android:text="@string/tv_pass_confirm" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AppItems"
             android:orientation="horizontal">
 
             <EditText
+                style="@style/AppItems.et"
                 android:id="@+id/et_pass_conf"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword" />
 
             <ImageView
-                android:id="@+id/iv_pass_conf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:visibility="gone" />
+                style="@style/AppItems.icons"
+                android:id="@+id/iv_pass_conf"/>
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/tv_choise"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            style="@style/AppItems.tv"
+            android:text="@string/tv_choise" />
 
         <RadioGroup
-            android:id="@+id/rg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            style="@style/AppItems"
+            android:id="@+id/rg">
 
             <RadioButton
+                style="@style/AppItems"
                 android:id="@+id/rb_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="@string/rb_watch" />
 
             <RadioButton
+                style="@style/AppItems"
                 android:id="@+id/rb_advertiser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/rb_add" />
 
         </RadioGroup>
 
-
         <Button
+            style="@style/AppItems.btn"
             android:id="@+id/btn_registration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:text="@string/btn_reg"
-            android:textAllCaps="false" />
+            android:text="@string/btn_reg" />
     </LinearLayout>
-
 
 </ScrollView>

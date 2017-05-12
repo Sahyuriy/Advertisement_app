@@ -5,16 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ADD8E6"
+    android:background="@color/background_color"
     tools:context="com.example.sah.advertisement_app.db.FavoritesActivity">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_favorites"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@drawable/round"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/isAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_green">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/AppItems.tv"
+                android:layout_marginLeft="@dimen/activity_padding"
+                android:text="@string/favorites" />
+
+            <ImageButton
+                android:layout_gravity="right"
+                android:id="@+id/btn_clean"
+                android:layout_width="@dimen/img_btn"
+                android:layout_height="@dimen/img_btn"
+                android:background="@drawable/img_btn"
+                android:scaleType="centerCrop"
+                android:src="@drawable/del" />
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="@dimen/activity_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_favorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

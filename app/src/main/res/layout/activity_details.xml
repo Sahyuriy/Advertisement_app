@@ -1,76 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="@drawable/shape"
     android:orientation="vertical"
     tools:context="com.example.sah.advertisement_app.DetailsActivity">
 
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/round" />
 
-        <Button
-            android:id="@+id/btn_f"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="Добавить в избранное"
-            android:textAllCaps="false" />
+    <LinearLayout
+        android:id="@+id/isAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_green"
+        android:visibility="gone">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="#000000" />
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_descr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#20B2AA"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_author_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                style="@style/AppItems.tv"
+                android:layout_marginLeft="@dimen/activity_padding"
+                android:text="@string/isAuthor" />
 
-            <TextView
-                android:id="@+id/tv_author_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="24sp" />
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/btn_del"
+                android:layout_width="@dimen/img_btn"
+                android:layout_height="@dimen/img_btn"
+                android:layout_gravity="right"
+                android:background="@drawable/img_btn"
+                android:scaleType="centerCrop"
+                android:src="@drawable/del" />
 
+        </FrameLayout>
     </LinearLayout>
-</ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/marginTop">
+
+            <Button
+                android:id="@+id/btn_f"
+                style="@style/AppItems.btn"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/marginTop"
+                android:text="@string/btn_fav" />
+
+            <LinearLayout
+                style="@style/AppItems.line"
+                android:layout_marginTop="@dimen/marginTop" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/AppItems.tv.title"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:id="@+id/iv_image"
+                style="@style/AppItems"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_descr"
+                style="@style/AppItems.tv" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:background="@drawable/bg_items"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/AppItems.tv"
+                        android:layout_marginTop="@dimen/zero"
+                        android:text="@string/tv_author" />
+
+                    <TextView
+                        android:id="@+id/tv_author_name"
+                        style="@style/AppItems.tv"
+                        android:layout_marginTop="@dimen/zero" />
+
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/ib_send"
+                    android:layout_width="@dimen/img_btn"
+                    android:layout_height="@dimen/img_btn"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/zero"
+                    android:background="@drawable/img_btn"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coment" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

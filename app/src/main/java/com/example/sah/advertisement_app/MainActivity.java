@@ -1,12 +1,19 @@
 package com.example.sah.advertisement_app;
 
+import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -52,31 +60,18 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String APP_PREF = "mysettings";
     public static final String APP_PREF_SIGNED = "signed";
+    public static final String APP_PREF_USER = "usertype";
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private EditText etEmail, etPass;
-    private Button btnAuth, btnReg;
     private SharedPreferences mSettings;
     private FirebaseUser user;
     private DatabaseReference myRef;
-    private List<String> mList;
-    private ListView listView;
-    private TextView textView;
-    private FirebaseListAdapter mAdater;
-
-
-    private Button btn_new, storage;
-    private EditText et_new;
-    //private ArrayList<String> items = new ArrayList<>();
-    private ArrayList<String> items;
-    private Spinner spinner, spinnerAdd;
-    private String selectedCategory;
+    private ImageButton btn_new;
     private Button btn_show;
-    private ImageView imageView;
-    private FirebaseStorage fStorage = FirebaseStorage.getInstance();
-    private StorageReference storageRef = fStorage.getReferenceFromUrl("gs://advertisementapp-c96d6.appspot.com/images/niZkcNtKU8abzIO9NwUPy5P4Bxv2[C@421a3dc0.jpg");
-
+    private Toolbar toolbar;
+    private ProgressDialog pd;
+    private ImageView iv_noSignal;
     String value;
 
     @Override
@@ -85,6 +80,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        toolbar.getBackground().setAlpha(125);
+        //toolbar.setTitle("Bla");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        pd = new ProgressDialog(getApplicationContext());
+
+        myRef = FirebaseDatabase.getInstance().getReference();
+        user = mAuth.getInstance().getCurrentUser();
         mSettings = getSharedPreferences(APP_PREF, Context.MODE_PRIVATE);
 
         mAuth = FirebaseAuth.getInstance();
@@ -106,27 +112,26 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        if (mSettings.getString(APP_PREF_SIGNED, "").equals("isSigned")) {
+        btn_show = (Button) findViewById(R.id.btn_show);
+        btn_new = (ImageButton) findViewById(R.id.btn_new);
+        if (!mSettings.getString(APP_PREF_USER, "").equals("advertiser")) {
+            btn_new.setVisibility(View.GONE);
+        }
+        iv_noSignal = (ImageView) findViewById(R.id.iv_signal);
 
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.fragm, new MainFragment())
-//                    .commit();
+
+        CheckConnection cc = new CheckConnection(this);
+        if (cc.isNetworkAvailable()) {
+            if (!mSettings.getString(APP_PREF_SIGNED, "").equals("isSigned")) {
+                Toast.makeText(this, R.string.toast_auth, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this, AuthActivity.class));
+            }
 
         } else {
-            Toast.makeText(this, "Авторизируйтесь", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(MainActivity.this, AuthActivity.class));
+            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_SHORT).show();
+            iv_noSignal.setVisibility(View.VISIBLE);
+
         }
-
-
-        textView = (TextView) findViewById(R.id.tv);
-
-        btn_show = (Button) findViewById(R.id.btn_show);
-        btn_new = (Button) findViewById(R.id.btn_new);
-
-        myRef = FirebaseDatabase.getInstance().getReference();
-        user = mAuth.getInstance().getCurrentUser();
-
-        //spinner = (Spinner) findViewById(R.id.spinner_watch);
 
 
         btn_show.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
@@ -152,9 +158,41 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
+            case android.R.id.home:
+                if (getParentActivityIntent() == null) {
+                    onBackPressed();
+                } else {
+                    NavUtils.navigateUpFromSameTask(this);
+                }
+                return true;
+
             case R.id.logout:
+                logout();
+                return true;
+
+            case R.id.favorites:
+                startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+                return true;
+
+            case R.id.close:
+                exit();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void logout() {
+        final AlertDialog.Builder logoutDialog = new AlertDialog.Builder(this);
+        logoutDialog.setMessage(R.string.dialogLogout);
+        logoutDialog.setPositiveButton(R.string.dialogBtn_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 mAuth.signOut();
                 SharedPreferences.Editor editor = mSettings.edit();
                 editor.putString(APP_PREF_SIGNED, "notSigned");
@@ -162,12 +200,37 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, AuthActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-            case R.id.favorites:
-                startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
-            case R.id.close:
-                finishAffinity();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            }
+        }).setCancelable(false)
+                .setNegativeButton(R.string.dialogBtn_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        logoutDialog.create();
+        logoutDialog.show();
     }
+
+
+    private void exit() {
+        final AlertDialog.Builder exitDialog = new AlertDialog.Builder(this);
+        exitDialog.setMessage(R.string.dialogExit);
+        exitDialog.setPositiveButton(R.string.dialogBtn_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finishAffinity();
+            }
+        }).setCancelable(false)
+                .setNegativeButton(R.string.dialogBtn_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        exitDialog.create();
+        exitDialog.show();
+    }
+
+
 }

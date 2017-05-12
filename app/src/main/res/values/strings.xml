@@ -1,44 +1,87 @@
 <resources>
-    <string name="app_name">Advertisement_app</string>
+    <string name="app_name">Рекламный стенд</string>
+
     <string-array name="category">
         <item>Техника</item>
         <item>Медицина</item>
+        <item>Мебель</item>
         <item>Другое</item>
     </string-array>
 
+    <string name="toast_auth">Авторизируйтесь</string>
 
+    <string name="btn_auth">Авторизация</string>
+    <string name="btn_registration">Регистрация</string>
     <string name="tv_name">Введите имя</string>
     <string name="tv_email">Введите Ваш Email</string>
     <string name="tv_pass">Введите Ваш пароль</string>
     <string name="tv_pass_confirm">Введите пароль еще раз</string>
+    <string name="tv_text">Не менее 6 символов</string>
     <string name="tv_choise">Вы собираетесь:</string>
     <string name="rb_watch">Смотреть рекламу</string>
     <string name="rb_add">Размещать рекламу</string>
-    <string name="btn_reg">Зарегестрироваться</string>
+    <string name="btn_reg">Зарегистрироваться</string>
+    <string name="btn_fav">Добавить в избранное</string>
+
+    <string name="tv_author">Автор:</string>
 
     <string name="hint_name">Имя</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
 
     <string name="warning_title">Введите заглавие</string>
-    <string name="warning_text">В обьявлении должены присутствовать либо текст либо картинка</string>
+    <string name="warning_text">В объявлении должены присутствовать либо текст либо картинка</string>
     <string name="warning_reg_error">Ошибка регистрации</string>
+    <string name="warning_auth">Авторизация</string>
+    <string name="warning_auth_error">Ошибка авторизации</string>
     <string name="warning_reg">Регистрация успешна</string>
     <string name="warning_name">Введите имя</string>
     <string name="warning_pass_confirm">Поля паролей не совпадают</string>
 
+
+    <string name="tv_descr">Введите текст Вашего обьявления</string>
+    <string name="tv_category">Выберите категорию объявления</string>
+    <string name="btn_image">Выберите картинку</string>
+    <string name="btn_upl">Опубликовать</string>
+    <string name="btn_pre">Предпрсмотр</string>
+    <string name="tv_image">Выберите картинку (необязательно)</string>
+    <string name="scale1">По центру</string>
+    <string name="scale2">Стандарт</string>
+    <string name="scale3">Растянуть</string>
+
     <string name="no_internet">Нету интернет соединения</string>
     <string name="warning_pass">Введите пароль</string>
     <string name="warning_email">Поле email не может быть пустым</string>
-
+    <string name="pd_wait">Пожалуйста подождите</string>
+    <string name="btn_show">Просмотр рекламы</string>
 
     <string name="upload_img_f">Картинка не загружена</string>
     <string name="upload_img_s">Картинка загружена</string>
     <string name="upload_data_f">Данные не загружены</string>
     <string name="upload_data_s">Данные загружены</string>
+    <string name="add_to_fav_ok">Операция успешна</string>
+
+    <string name="isAuthor">Ваше объявление</string>
+    <string name="favorites">Избранное</string>
+
+    <string name="comentsText">Коментарии:</string>
+    <string name="comentsBtn">Оставить коментарий</string>
+
+
+    <string name="dialogText_del">Удалить объявление?</string>
+    <string name="dialogBtn_yes">Да</string>
+    <string name="dialogBtn_send">Отправить</string>
+    <string name="dialogBtn_no">Отмена</string>
+    <string name="dialogTitle_send">Отправка сообщения</string>
+    <string name="dialogExit">Закрыть приложение?</string>
+    <string name="dialogLogout">Выйти из учетной записи?</string>
+    <string name="dialogFavorites">Очистить избранное?</string>
+
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

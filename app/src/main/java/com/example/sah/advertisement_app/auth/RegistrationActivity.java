@@ -214,7 +214,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
 
                 } else {
-                    Toast.makeText(RegistrationActivity.this, R.string.warning_reg_error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, R.string.warning_reg_error + "\n" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -259,47 +259,32 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         if (isEmailValid) {
             iv_check.setVisibility(View.VISIBLE);
-            iv_check.setImageResource(R.mipmap.ic_ok);
+            iv_check.setImageResource(R.drawable.ic_ok);
         } else {
             iv_check.setVisibility(View.VISIBLE);
-            iv_check.setImageResource(R.mipmap.ic_wrong);
+            iv_check.setImageResource(R.drawable.ic_wrong);
         }
         if (isPasswordValid) {
             iv_check_pass.setVisibility(View.VISIBLE);
-            iv_check_pass.setImageResource(R.mipmap.ic_ok);
+            iv_check_pass.setImageResource(R.drawable.ic_ok);
         } else {
             iv_check_pass.setVisibility(View.VISIBLE);
-            iv_check_pass.setImageResource(R.mipmap.ic_wrong);
+            iv_check_pass.setImageResource(R.drawable.ic_wrong);
         }
         if (isPassword) {
             iv_pass_conf.setVisibility(View.VISIBLE);
-            iv_pass_conf.setImageResource(R.mipmap.ic_ok);
+            iv_pass_conf.setImageResource(R.drawable.ic_ok);
         } else {
             iv_pass_conf.setVisibility(View.VISIBLE);
-            iv_pass_conf.setImageResource(R.mipmap.ic_wrong);
+            iv_pass_conf.setImageResource(R.drawable.ic_wrong);
         }
         if (isNameValid) {
             iv_name.setVisibility(View.VISIBLE);
-            iv_name.setImageResource(R.mipmap.ic_ok);
+            iv_name.setImageResource(R.drawable.ic_ok);
         } else {
             iv_name.setVisibility(View.VISIBLE);
-            iv_name.setImageResource(R.mipmap.ic_wrong);
+            iv_name.setImageResource(R.drawable.ic_wrong);
         }
     }
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        mAuth.fetchProvidersForEmail(etEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<ProviderQueryResult> task) {
-//                if (!task.getResult().getProviders().isEmpty()) {
-//                    Toast.makeText(getApplicationContext(), "Email is taken", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
 
-//        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-//            Toast.makeText(SignUpActivity.this, "User with this email already exist.", Toast.LENGTH_SHORT).show();
-//        }
-//        if(etEmail.getText().toString().equals(user.getEmail().trim())) {
-//            Toast.makeText(this, "Email is taken", Toast.LENGTH_SHORT).show();
-//        }
 }

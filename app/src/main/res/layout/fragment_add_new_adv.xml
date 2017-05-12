@@ -1,131 +1,112 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     android:orientation="vertical"
-    android:background="#ADD8E6"
     tools:context="com.example.sah.advertisement_app.AddNewAdvFragment">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/AppItems.tv"
+            android:text="@string/warning_title" />
+
+        <EditText
+            android:id="@+id/et_title"
+            style="@style/AppItems.et.adv"
+            android:inputType="text" />
+
+        <TextView
+            style="@style/AppItems.tv"
+            android:text="@string/tv_image" />
+
+        <Button
+            android:id="@+id/btn_add_picture"
+            style="@style/AppItems.btn"
+            android:layout_width="match_parent"
+            android:text="@string/btn_image" />
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="@dimen/img_size"
+            android:layout_height="@dimen/img_size"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
 
         <LinearLayout
+            android:id="@+id/lin"
+            style="@style/AppItems"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/scale1"
+                style="@style/AppItems.btn.small"
+                android:text="@string/scale1" />
+
+            <Button
+                android:id="@+id/scale2"
+                style="@style/AppItems.btn.small"
+                android:text="@string/scale2" />
+
+            <Button
+                android:id="@+id/scale3"
+                style="@style/AppItems.btn.small"
+                android:text="@string/scale3" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/AppItems.tv"
+            android:text="@string/tv_descr" />
+
+        <EditText
+            android:id="@+id/et_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:inputType="textMultiLine"
+            android:lines="4" />
+
+        <TextView
+            style="@style/AppItems.tv"
+            android:text="@string/tv_category" />
+
+        <Spinner
+            android:id="@+id/spinner_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTop"
+            android:entries="@array/category" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/warning_title"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/et_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Выберите картинку (необязательно)"
-                android:textColor="#000000"
-                android:textSize="20sp" />
+        <LinearLayout
+            android:layout_margin="@dimen/marginTop"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_add_picture"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Добавить изображение"
-                android:textAllCaps="false"
-                android:textColor="#000000" />
-
-            <ImageView
-                android:id="@+id/iv_img"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:visibility="gone" />
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/lin"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <Button
-                    android:textAllCaps="false"
-                    android:text="По центру"
-                    android:id="@+id/scale1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <Button
-                    android:textAllCaps="false"
-                    android:text="Стандарт"
-                    android:id="@+id/scale2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <Button
-                    android:textAllCaps="false"
-                    android:text="Растянуть"
-                    android:id="@+id/scale3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Введите текст Вашего обьявления"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/et_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:lines="7" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Выберите категорию обьявления"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spinner_add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:entries="@array/category" />
-
+                android:id="@+id/btn_pre"
+                style="@style/AppItems.btn"
+                android:text="@string/btn_pre" />
             <Button
                 android:id="@+id/btn_upl"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Опубликовать" />
-
-
-
-            <TextView
-                android:id="@+id/tv_t"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="25sp" />
+                style="@style/AppItems.btn"
+                android:text="@string/btn_upl" />
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+        <LinearLayout
+            style="@style/AppItems"
+            android:layout_marginTop="@dimen/marginTop"/>
+    </LinearLayout>
+
+
+</ScrollView>
