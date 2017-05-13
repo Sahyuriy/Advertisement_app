@@ -154,7 +154,7 @@ public class AuthActivity extends AppCompatActivity {
                     editor.apply();
                     startActivity(new Intent(AuthActivity.this,MainActivity.class));
                 }else {
-                    Toast.makeText(AuthActivity.this, R.string.warning_auth_error +"\n" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AuthActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

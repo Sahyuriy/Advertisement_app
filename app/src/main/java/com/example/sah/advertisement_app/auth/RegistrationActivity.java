@@ -214,7 +214,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
 
                 } else {
-                    Toast.makeText(RegistrationActivity.this, R.string.warning_reg_error + "\n" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -56,7 +56,6 @@ public class AddNewAdvFragment extends Fragment {
     private Spinner spinnerCategory;
     private EditText et_text, et_title;
     private FirebaseAuth mAuth;
-    //private DatabaseReference myRef;
     private Button btn_upl, btn_pre;
     private String selectedCategory;
     private Button chooseImg;
@@ -64,10 +63,8 @@ public class AddNewAdvFragment extends Fragment {
     private String imgName = "";
     private Uri filePath;
     private ProgressDialog pd;
-    private TextView textView;
     private String jsonAdv;
     private JSONObject jsonObj, jsonImage;
-    private String jTitle, jText, jName, jImage = "";
     private LinearLayout linLay;
     private Button scale1, scale2, scale3;
     private String scaleType = "centerCrop";
@@ -331,8 +328,6 @@ public class AddNewAdvFragment extends Fragment {
 
 
         final AlertDialog.Builder preDialog = new AlertDialog.Builder(getContext());
-
-        //preDialog.setTitle(R.string.btn_pre);
 
         ScrollView linearlayout = (ScrollView) getActivity().getLayoutInflater().inflate(R.layout.pre_look, null);
         preDialog.setView(linearlayout);
